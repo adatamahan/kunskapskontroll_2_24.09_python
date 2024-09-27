@@ -51,7 +51,7 @@ class FileProcessor:
         result = subprocess.run(['bash', self.bash_script, prefix], capture_output=True, text=True)
 
         if result.returncode != 0:   # unix convention: 0 is success
-            self.logger.error(f"Error: {result.stderr}")
+            self.logger.error('Error: %s', result.stderr)
         else:
             self.logger.info('Shell script executed successfully.')
             
@@ -72,9 +72,9 @@ class FileProcessor:
         try:
             self.run_shell_script(prefix)
             self.move_files()
-            self.logger.info(f"Files moved from {self.source_dir} to {self.dest_dir}")
+            self.logger.info('Files moved from %s to %s', self.source_dir, self.dest_dir)
         except Exception as e:
-            self.logger.error(f"Error processing files: {type(e).__name__} - {e}")
+            self.logger.error('Error processing files: %s', type(e).__name__)
 
 
 if __name__ == "__main__":
