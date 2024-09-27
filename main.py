@@ -2,8 +2,13 @@
 
 #!/home/astrid/dev/.conda/bin/python3
 
-''' The main script that imports text files from a repository, processes the text files and saves the returned DataFrame in SQlite,'''
-
+''' 
+The main script where input parameters are instantiated. 
+Text files are loaded via a shell script.
+The texts are processed and a DataFrame with text statistics are created.
+The DataFrame is saved in an SQlite database. 
+At last the DataFrame is retrieved from the database and information are printed to the terminal.
+'''
 
 
 import logging
@@ -24,31 +29,28 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-# import text H. C. Andernsen text files from repo and save them in a directory -> text_directory
-processor = FileProcessor(
-        bash_script ='/home/astrid/dev/extract_stuff_prefix.sh',
-        source_dir ='/home/astrid/dev/',
-        dest_dir ='/home/astrid/dev/hca_directory/'
-    )
-processor.process('hcaeventyr0')
-
-
-# loop thorugh the files in the directory and process them with the script -> dataframe
-directory = '/home/astrid/dev/hca_directory/'
-hca_directory = TextStatistics(directory)
-hca_df = hca_directory.process_texts()
-
-
-# save the returned dataframe
+# input parameters
+source_dir = '/home/astrid/dev/'
+dest_dir = '/home/astrid/dev/hca_directory/'
+prefix = 'hcaeventyr0'
 database = 'hca_database.db'
 table_name = 'hca_text_statistics'
-import_to_database(hca_df, database, table_name)
 
+
+# loading and processing texts
+processor = FileProcessor(source_dir, dest_dir)
+processor.process(prefix)
+
+stats = TextStatistics(dest_dir)
+df = stats.process_texts()
+
+# saving the returned DataFrame into a database
+import_to_database(df, database, table_name)
 
 # load dataframe and view the dataframe
 df = read_from_sqlite(database, table_name)
 
-print(df.tail(10))
+print(df.head(5))
 print(df.info())  
 print(df.describe()) 
 
