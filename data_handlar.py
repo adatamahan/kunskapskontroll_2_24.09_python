@@ -7,7 +7,6 @@
 
 import pandas as pd
 import sqlite3
-import json
 import logging
 
 logger = logging.getLogger(__name__)
