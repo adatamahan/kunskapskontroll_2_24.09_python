@@ -31,7 +31,7 @@ This repository contains scripts that load text files through a shell script fro
 - requirements.txt : a txt file with the packages for the environment <br>
 - log_file.log : a logfile with the logged information <br>
 - hca_directory : the folder with retrieved texts <br>
-- hca_database : the creates hca database <br>
+- hca_database : the created hca database <br>
 - screen shot from Task Schedular: the above files are fitted for WSL. The script scheduled in task manager are the one below. <br>
 - main_windows.py : the main script excluding the module load_from_repo.py <br>
 <br>
