@@ -27,18 +27,18 @@ class TextStatistics:
         self.directory = directory
         self.text = ""
         self.logger = logging.getLogger(__name__)
-        self.logger.info(f"TextStatistics initialized with directory: {directory}")
+        self.logger.info('TextStatistics initialized with directory: %s', directory)
         
         # Log the count of files in the directory if it exists
         try:
             file_count_workid = len([f for f in os.listdir(self.directory) if '-workid' in f])
             file_count_titles = len([f for f in os.listdir(self.directory) if '_titles' in f])
-            self.logger.info(f"Count of files that contains '-workdid' in the filename: {file_count_workid}")
-            self.logger.info(f"Count of files contains '-titles' in the filename: {file_count_titles}")
+            self.logger.info('Count of files that contains "-workdid" in the filename: %s', file_count_workid)
+            self.logger.info('Count of files contains "-titles" in the filename: %s', file_count_titles)
         except FileNotFoundError:
-            self.logger.error(f"Directory {self.directory} not found.")
+            self.logger.error('Directory %s not found', self.directory)
         except Exception as e:
-            self.logger.error(f"Error accessing directory: {type(e).__name__} - {e}")
+            self.logger.error('Error accessing directory:', type(e).__name__)
 
 
     def get_titles(self) -> pd.DataFrame:
@@ -56,7 +56,7 @@ class TextStatistics:
                             data.append((prefix, workid, title))
         
         df1 = pd.DataFrame(data, columns=['prefix', 'workid', 'title'])
-        self.logger.info(f"Dataframe with prefix, workid and titles are created with {len(df1)} rows.")
+        self.logger.info('Dataframe with prefix, workid and titles are created with %s rows', len(df1))
         return df1
 
    
@@ -69,13 +69,13 @@ class TextStatistics:
                         self.text = file.read()
             return True
         except FileNotFoundError:
-            self.logger.error(f"File {file_path} not found.")
+            self.logger.error('File %s not found', file_path)
             return False
         except IOError as e:
-            self.logger.error(f"An error occurred while reading the file: {type(e).__name__} - {e}")
+            self.logger.error('An error occurred while reading the file: %s', type(e).__name__)
             return False
         except Exception as e:
-            self.logger.error(f"An unexpected error occurred: {type(e).__name__} - {e}")
+            self.logger.error('An unexpected error occurred:', type(e).__name__)
             return False
    
    
@@ -167,7 +167,7 @@ class TextStatistics:
             series.name = self.extract_workid(file_path)  # Set the name to the workid or any relevant identifier
             return series
         else:
-            self.logger.error(f"Incomplete text statistics for {file_path}. Data: {data}")
+            self.logger.error('Incomplete text statistics for %s Data %s', file_path, data)
             return None
 
 
@@ -177,13 +177,13 @@ class TextStatistics:
             merged_df = pd.merge(df1, df2, on='workid', how='right')
             return merged_df
         except Exception as e:
-            self.logger.error(f"An error occurred while merging the dataframes: {type(e).__name__} - {e}")
+            self.logger.error('An error occurred while merging the dataframes: %s', type(e).__name__)
             return None
     
     
     def process_texts(self) -> pd.DataFrame:
         '''Process all text files in the directory and returns a combined dataframe.'''
-        self.logger.info(f'Starting text processing for directory: {self.directory}') 
+        self.logger.info('Starting text processing for directory: %s', self.directory) 
         
         series_list = []
         
@@ -195,21 +195,21 @@ class TextStatistics:
                     self.add_file(file_path)
                     series_list.append(self.text_statistics(file_path))
                 except Exception as e:
-                    self.logger.error(f"Error processing file {file_path}: {type(e).__name__} - {e}")
+                    self.logger.error('Error processing file %s : %s', file_path, type(e).__name__)
 
     
         text_statistics = pd.DataFrame(series_list)
         
         df_titles = self.get_titles()
         combined_df = self.merge_dataframes(df_titles, text_statistics)
-        self.logger.info(f"Text processing completed. Combined DataFrame shape: {combined_df.shape}")
+        self.logger.info('Text processing completed. Combined DataFrame shape: %s', combined_df.shape)
         
         # check if the DataFrame contains any None or invalid values and log them
         for column in combined_df.columns:
             for value in combined_df[column]:
                 if value is None or (isinstance(value, (int, float)) and (value <= 0)):
                     workid = self.extract_workid(file_path)
-                    self.logger.warning(f"Invalid value {value} for: {column} in file: {workid} in combined DataFrame")
+                    self.logger.warning('Invalid value %s for: %s in file: %s in combined DataFrame', value, column, workid)
         
         return combined_df
 
