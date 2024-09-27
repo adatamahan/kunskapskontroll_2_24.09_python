@@ -48,6 +48,8 @@ Below are the first lines 5 rows and 11 columns of the DataFrame with text stati
 |  3 | hcaeventyr | workid89462 | Verdens deiligste Rose.                                     |              4480 |           995 |
 |  4 | hcaeventyr | workid71035 | Eventyr, fortalte for Børn. Ny Samling. Første Hefte. 1838. |             49663 |         10872 |
 
+<br>
+
 |    |   word_count |   vocabulary_count |   sentence_count |   avg_words_in_sentence |   mean_word_length |   lexical_diversity |
 |---:|-------------:|-------------------:|-----------------:|------------------------:|-------------------:|--------------------:|
 |  0 |          964 |                490 |               70 |                   13.77 |               4.58 |                0.51 |
