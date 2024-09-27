@@ -21,17 +21,17 @@ This repository contains scripts that load text files through a shell script fro
 - get_the_text.xsl : creates one text file per title in the TEI file. <br>
 - get_titles.xsl : creates a list of works inside a TEI file. <br>
 
-<b>Test folder</b><br>
+<b>Tests folder</b><br>
 - test_script : a script that performs various pytests of the scripts excluding the main.py script
 - test_text : a folder containing text files for testing purposes <br>
 - test_text_database.db : the created test database <br>
+- screen shot from performed pytest <br>
         
 <b>Directories, databases and other files</b><br>
 - requirements.txt : a txt file with the packages for the environment <br>
 - log_file.log : a logfile with the logged information <br>
 - hca_directory : the folder with retrieved texts <br>
-- hca_text_database : the creates hca database <br>
-- screen shot from performed pytest <br>
+- hca_database : the creates hca database <br>
 - screen shot from Task Schedular: the above files are fitted for WSL. The script scheduled in task manager are the one below. <br>
 - main_windows.py : the main script excluding the module load_from_repo.py <br>
 <br>
