@@ -36,11 +36,10 @@ import logging
 
 
 class FileProcessor:
-    '''A class that runs a bash shell script that loads text files into a directory. 
+    '''A class that runs a bash shell script (extract_stuff_prefix.sh) that unpacks .xml files into a directory. 
         The loaded text files are afterwards moved to another directory.'''
         
-    def __init__(self, bash_script: str, source_dir: str, dest_dir: str) -> None:
-        self.bash_script = bash_script
+    def __init__(self, source_dir: str, dest_dir: str) -> None:
         self.source_dir = source_dir
         self.dest_dir = dest_dir
         self.logger = logging.getLogger(__name__)
@@ -48,7 +47,7 @@ class FileProcessor:
 
     def run_shell_script(self, prefix: str) -> None:
         '''Run the shell script with the prefix parameter.'''
-        result = subprocess.run(['bash', self.bash_script, prefix], capture_output=True, text=True)
+        result = subprocess.run(['bash', 'extract_stuff_prefix.sh', prefix], capture_output=True, text=True)
 
         if result.returncode != 0:   # unix convention: 0 is success
             self.logger.error('Error: %s', result.stderr)
@@ -81,7 +80,6 @@ if __name__ == "__main__":
     
     # testing the class
     processor = FileProcessor(
-        bash_script ='extract_stuff_prefix.sh',
         source_dir ='/home/astrid/dev/py_files/',
         dest_dir ='/home/astrid/dev/hca_text_directory/'
     )
