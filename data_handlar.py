@@ -18,10 +18,10 @@ def import_to_database(df, database, table_name) -> bool:
         conn = sqlite3.connect(database)
         df.to_sql(table_name, conn, if_exists='append', index=False)
         conn.close()
-        logger.info(f"Data from Dataframe imported successfully into {database} and {table_name}")
+        logger.info('Data from Dataframe imported successfully into %s and %s', database, table_name)
         return True
     except Exception as e:
-        logger.error(f"Error importing data to {database}, table: {table_name}, exception: {type(e).__name__} - {e}")
+        logger.error('Error importing data to %s table: %s, exception %s', database, table_name, type(e).__name__)
         return False
 
 
@@ -31,10 +31,10 @@ def read_from_sqlite(database, table_name):
         conn = sqlite3.connect(database)
         df = pd.read_sql(f'SELECT * FROM {table_name}', conn)
         conn.close()
-        logger.info(f"Data read from database {database} and table {table_name}")
+        logger.info('Data read from database %s and table %s', database, table_name)
         return df
     except Exception as e:
-        logger.error(f"Error reading data to {database}, table: {table_name}, exception: {type(e).__name__} - {e}")
+        logger.error('Error reading data to %s table: %s, exception %s', database, table_name, type(e).__name__)
         return None
 
 
