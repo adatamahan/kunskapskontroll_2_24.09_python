@@ -22,8 +22,3 @@ Jag har försökt kommentera koden tydligt, ge funktionerna beskrivande namn och
 ## Något du vill lyfta fram till Linus och Antonio?
 
 Tack för en bra kurs och en bra bok. Jag fick ut mycket av både lektionerna, att läsa boken och att genomföra projektet. Jag skulle gärna vilja få feedback på hur jag kan förbättra koden och strukturen.
-
-
-##Något du vill lyfta fram till Linus och Antonio?
-
-Tack för en bra kurs och en bra bok. Jag fick ut mycket av både lektionerna, att läsa boken och att genomföra projektet. Jag skulle gärna vilja få feedback på hur jag kan förbättra koden och strukturen.
