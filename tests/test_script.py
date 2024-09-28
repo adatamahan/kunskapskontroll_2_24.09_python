@@ -3,7 +3,7 @@
 '''
 A script that performs pytests on the scripts below
 - load_from_repo.py
-- data_cleaner_class.py
+- text_processor.py
 - data_handlar.py
 '''
 
@@ -16,13 +16,12 @@ import re
 
 from load_from_repo import FileProcessor
 from data_handlar import import_to_database, read_from_sqlite
-from data_cleaner_class import TextStatistics
+from text_processor import TextStatistics
 
 
 # testing the load_from_repo.py script
 
 processor = FileProcessor(
-        bash_script ='extract_stuff_prefix.sh',
         source_dir ='/home/astrid/dev/',
         dest_dir ='/home/astrid/dev/test_text_directory/'
     )
@@ -45,7 +44,7 @@ def test_load_from_repo():
      
 
 
-# testing the data_cleaner_class.py script
+# testing the text processor script
 
 directory = '/home/astrid/dev/test_texts/'
 test_stats = TextStatistics(directory)
@@ -53,7 +52,7 @@ df_test = test_stats.process_texts()
 print(df_test)
 
 
-def test_data_cleaner_class():
+def test_text_processor():
     '''
     A function that tests the data_cleaner_class.py script.  
     The following is tested:
