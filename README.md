@@ -12,7 +12,7 @@ This repository contains scripts that load text files through a shell script fro
 ## Contents
 - main.py : main script that imports the other scripts and executes the flow<br>
 - load_from_repo.py : a script that imports texts from the repository https://github.com/kb-dk/public-adl-text-sources <br>
-- data_cleaner.py : a script that processes the texts and returns a DataFrame with various text statistics <br>
+- text_processor.py : a script that processes the texts and returns a DataFrame with various text statistics <br>
 - data_handlar.py :  a script that saves or reads DataFrames to a SQlite database<br>
 
 <b>Imported files from https://github.com/kb-dk/public-adl-text-sources</b><br>
