@@ -15,7 +15,7 @@ import logging
 import pandas as pd
 
 from load_from_repo import FileProcessor
-from data_cleaner_class import TextStatistics
+from text_processor import TextStatistics
 from data_handlar import import_to_database, read_from_sqlite
 
 
