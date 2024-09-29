@@ -182,7 +182,7 @@ class TextStatistics:
     
     
     def process_texts(self) -> pd.DataFrame:
-        '''Process all text files in the directory and returns a combined dataframe.'''
+        '''Process all text files in the directory and returns a combined dataframe and checks for invalid values.'''
         self.logger.info('Starting text processing for directory: %s', self.directory) 
         
         series_list = []
@@ -205,11 +205,23 @@ class TextStatistics:
         self.logger.info('Text processing completed. Combined DataFrame shape: %s', combined_df.shape)
         
         # check if the DataFrame contains any None or invalid values and log them
-        for column in combined_df.columns:
-            for value in combined_df[column]:
-                if value is None or (isinstance(value, (int, float)) and (value <= 0)):
-                    workid = self.extract_workid(file_path)
-                    self.logger.warning('Invalid value %s for: %s in file: %s in combined DataFrame', value, column, workid)
+        numeric_columns = ['character_count', 'token_count', 'word_count', 'vocabulary_count', 'sentence_count',
+                       'avg_words_in_sentence', 'mean_word_length', 'lexical_diversity']
+        object_columns = ['prefix', 'workid', 'title']
+
+        # Check numeric columns
+        for column in numeric_columns:
+            invalid_mask = combined_df[column].isna() | (combined_df[column] <= 0)
+            invalid_rows = combined_df[invalid_mask]
+            for _, row in invalid_rows.iterrows():
+                self.logger.warning('Invalid value %s for: %s in file: %s in combined DataFrame', row[column], column, row['workid'])
+
+        # Check object columns
+        for column in object_columns:
+            invalid_mask = combined_df[column].isna() | (~combined_df[column].apply(lambda x: isinstance(x, str) and bool(x.strip()))) # tilde negates the condition   
+            invalid_rows = combined_df[invalid_mask]
+            for _, row in invalid_rows.iterrows():
+                self.logger.warning('Invalid value %s for: %s in file: %s in combined DataFrame', row[column], column, row['workid'])
         
         return combined_df
 
