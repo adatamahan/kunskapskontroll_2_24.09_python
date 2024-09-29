@@ -213,15 +213,15 @@ class TextStatistics:
         for column in numeric_columns:
             invalid_mask = combined_df[column].isna() | (combined_df[column] <= 0)
             invalid_rows = combined_df[invalid_mask]
-            for _, row in invalid_rows.iterrows():
-                self.logger.warning('Invalid value %s for: %s in file: %s in combined DataFrame', row[column], column, row['workid'])
+            for row in invalid_rows.itertuples(index=False):
+                self.logger.warning('Invalid value %s for: %s in file: %s in combined DataFrame', getattr(row, column), column, row.workid)
 
         # Check object columns
         for column in object_columns:
             invalid_mask = combined_df[column].isna() | (~combined_df[column].apply(lambda x: isinstance(x, str) and bool(x.strip()))) # tilde negates the condition   
             invalid_rows = combined_df[invalid_mask]
-            for _, row in invalid_rows.iterrows():
-                self.logger.warning('Invalid value %s for: %s in file: %s in combined DataFrame', row[column], column, row['workid'])
+            for row in invalid_rows.itertuples(index=False):
+                self.logger.warning('Invalid value %s for: %s in file: %s in combined DataFrame', getattr(row, column), column, row.workid)
         
         return combined_df
 
