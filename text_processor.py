@@ -161,14 +161,10 @@ class TextStatistics:
             'lexical_diversity': self.lexical_diversity()
         }
     
-        # Check if any of the data keys are missing or None
-        if len(data) == 9:
-            series = pd.Series(data) 
-            series.name = self.extract_workid(file_path)  # Set the name to the workid or any relevant identifier
-            return series
-        else:
-            self.logger.error('Incomplete text statistics for %s Data %s', file_path, data)
-            return None
+        series = pd.Series(data) 
+        series.name = self.extract_workid(file_path)  # Set the name to the workid or any relevant identifier
+        
+        return series
 
 
     def merge_dataframes(self, df1: pd.DataFrame, df2: pd.DataFrame) -> pd.DataFrame:
