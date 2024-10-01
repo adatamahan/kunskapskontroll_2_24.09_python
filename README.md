@@ -1,7 +1,7 @@
 
 <b> Astrid Hansen <br>
 Ec Utbildning <br>
-Kunskapskontroll 2<br>
+Kunskapskontroll 2 - fördjupad python kurs<br>
 24.09 <br>
 </b>
 <br>
